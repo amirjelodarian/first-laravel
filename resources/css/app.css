@@ -1,0 +1,92 @@
+html{
+    scroll-behavior: smooth;
+    transition: 500ms;
+}
+ul.navbar-nav li a{
+    direction: rtl;
+    font-family: IRANSansB!important;
+}
+.register-form{
+    text-align: center;
+    color: white;
+    font-family: IRANSansM;
+    direction: rtl;
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+.verify{
+    margin-top: 100px;
+    font-family: IRANSansM;
+    text-align: center;
+}
+.verify h1{
+    font-family: IRANSansB;
+}
+.verify form{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+.verify input[type=text]{
+    text-align: center;
+}
+.flash-alert{
+    text-align: right;
+    direction: rtl;
+    font-family: IRANSansM;
+    position: absolute;
+    top: 76px;
+    width: 100%;
+    z-index: 1;
+}
+.flash-alert button[type=button]{
+    top: 5px;
+}
+.login-register-a{
+    display: inline-block!important;
+}
+.reset-password-phone-form{
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+    font-family: IRANSansM;
+}
+#reset-password-phone{
+    max-width: 180px;
+    max-width: 180px;
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+    display: inline-block!important;
+}
+#reset-password-phone-btn{
+    display: inline-block!important;
+    font-family: IRANSansB;
+}
+.font-iransans-b{
+    font-family: IRANSansB;
+}
+.font-iransans-m{
+    font-family: IRANSansM;
+}
+.font-iransans-l{
+    font-family: IRANSansL;
+}
+.font-iransans-u{
+    font-family: IRANSansU;
+}
+.font-iransans-w{
+    font-family: IRANSansW;
+}
+.reset-password-confirm-code{
+    text-align: center;
+}
+@media screen and (max-width: 991px){
+    .register-form,.login-inputs{
+        z-index: 1;
+    }
+}
+@media screen and (min-width: 992px){
+    .state,.firstname,.password{
+        float: right;
+    }
+}
