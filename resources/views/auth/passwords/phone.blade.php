@@ -86,10 +86,50 @@
                 data: {_token: _token, code: code, phone: phone},
                 success: function (data) {
                     $('#code-msg').show();
-                    $("#code-msg").html(data.reponse);
+                    $("#code-msg").html(data.response);
                 }
             });
         }
+    }
+    function changePassword() {
+        var _token = $('#token').val();
+        var code = $('#reset-password-confirm-code').val();
+        var phone = $('#reset-password-phone').val();
+        var password = $('#password').val();
+        var password_confirmation = $('#confirm-password').val();
+        $.ajax({
+            type: 'POST',
+            url: '/changePassword',
+            data: {
+                    _token: _token,
+                    code: code,
+                    phone: phone,
+                    password: password,
+                    password_confirmation: password_confirmation
+            },
+            success: function (data) {
+                $('#change-password-msg').show();
+                $("#change-password-msg").html(data);
+            },
+            error :function( data ) {
+                if (data.status === 422) {
+                    var errors = $.parseJSON(data.responseText);
+                    $.each(errors, function (key, value) {
+                        // console.log(key+ " " +value);
+
+                        if ($.isPlainObject(value)) {
+                            $.each(value, function (key, value) {
+                                $('#change-password-msg').show();
+                                $("#change-password-msg").html(value+"<br />");
+                            });
+                        } else {
+                            $('#change-password-msg').show();
+                            $("#change-password-msg").html(value+"<br />");
+                        }
+                    });
+                }
+            }
+        });
     }
 </script>
 @endsection

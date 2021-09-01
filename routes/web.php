@@ -28,9 +28,9 @@ Route::post('login', 'Auth\LoginController@login')->name('login.store');
 
 // forget password
 Route::get('forgetPassword', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('forgetPasswordForm');
-Route::post('forgetPassword', 'Auth\ForgotPasswordController@sendResetCodePhone')->name('forgetPassword');
-//Route::post('forgetPassword', 'Auth\ForgotPasswordController@sendResetCodePhone')->name('forgetPassword')->middleware('throttle:2,1');
+Route::post('forgetPassword', 'Auth\ForgotPasswordController@sendResetCodePhone')->name('forgetPassword')->middleware('throttle:2,1');
 Route::post('forgetPasswordConfirmCode', 'Auth\ForgotPasswordController@forgetPasswordConfirmCode');
+Route::post('changePassword', 'Auth\ForgotPasswordController@changePassword');
 //////////////////
 
 
