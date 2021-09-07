@@ -26,7 +26,8 @@ class User extends Authenticatable
         'address',
         'zip',
         'state',
-        'city'
+        'city',
+        'user_mode'
     ];
 
     /**
@@ -55,6 +56,11 @@ class User extends Authenticatable
     public function codes()
     {
         return $this->hasMany(UserCode::class);
+    }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
     }
 
     public function lastCode($request)

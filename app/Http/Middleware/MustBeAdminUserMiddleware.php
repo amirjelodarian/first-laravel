@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class EnsureUserVerified
+class MustBeAdminUserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,10 @@ class EnsureUserVerified
     {
         if (auth()->check()){
             $userId = $request->user();
-            $user = User::whereNotNull('phone_verified_at')->whereId($userId->id)->exists();
+            $user = User::whereUserMode('standard')->whereId($userId->id)->exists();
             if (!$user){
-                flash('باید حساب خود را تایید کنید !','alert-danger');
-//            return back();
+                flash('سطح دسترسی حساب شما ادمین است و دسترسی ندارید !','alert-danger');
+                return back();
             }
         }
         return $next($request);

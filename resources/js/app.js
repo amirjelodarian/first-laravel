@@ -50,3 +50,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 $('.close').click(function (){
    $('.flash-alert').fadeOut(500);
 });
+

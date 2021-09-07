@@ -44,7 +44,7 @@
                             <li><a href="#about">درباره ما</a></li>
                             <li><a href="#contact-us">ارتباط با ما</a></li>
                             <li><a href="#faq">سوالات متداول</a></li>
-                            <li><a href="#blog">بلاگ</a></li>
+                            <li><a href="{{ route('blog') }}">بلاگ</a></li>
                             <li><a href="#features">خدمات ما</a></li>
                             @guest
                                 <li>
@@ -56,19 +56,20 @@
                             @auth
                                 <li class="nav-item dropdown">
                                     @if($userStatus::verified())
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color: #00bcd4!important;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ Auth::user()->firstname }}
                                         </a>
                                     @else
-                                        <a id="navbarDropdown" class="nav-link text-warning" href="{{ route('verify') }}" role="button">
+                                        <a id="navbarDropdown" style="color: white!important;background: #337ab7!important" class="nav-link" href="{{ route('verify') }}" role="button">
                                             تایید حساب
                                         </a>
+
                                     @endif
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            خروج
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -77,6 +78,18 @@
                                     </div>
                                 </li>
                             @endauth
+                            @if(!$userStatus::verified() && auth()->check())
+                                <li>
+                                    <a class="navbarDropdown" href="{{ route('logout') }}" style="color: #a71d2a!important" class="nav-link"
+                                       onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                        خروج
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endif
                             <li><a href="{{ route('home') }}">خانه</a></li>
                         </ul>
                     </div>

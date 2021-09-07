@@ -40,5 +40,12 @@ Route::group(['middleware' => 'notVerified'],function (){
     Route::post('getNewCode', 'Auth\VerificationController@getNewCode')->name('getNewCodeVerify')->middleware('throttle:2,1');
 });
 
+// blog
+Route::get('blog','BlogController@index')->name('blog');
+Route::group(['middleware' => 'administratorUser','middleware' => 'auth'],function (){
+    Route::get('blog/add','BlogController@create')->name('add-blog');
+    Route::post('blog/add','BlogController@store')->name('add-post');
+});
+///////
 
 Route::get('home','HomeController@index')->name('home')->middleware('verified');
