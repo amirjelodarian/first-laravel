@@ -3,7 +3,6 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 
 window._ = require('lodash');
@@ -17,7 +16,6 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
     require('bootstrap');
 } catch (e) {}
 
@@ -50,4 +48,5 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 $('.close').click(function (){
    $('.flash-alert').fadeOut(500);
 });
+
 

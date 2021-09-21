@@ -60,13 +60,7 @@
                         var errorDisplay = document.querySelectorAll('[data-dz-errormessage]');
                         errorDisplay[errorDisplay.length - 1].innerHTML = 'تعداد عکس ها نباید بیشتر از 10 تا باشد';
                     }
-
-
                 });
-            },
-            success: function (data){
-                $('#msg').show();
-                $('#msg').html(data);
             }
         });
     </script>

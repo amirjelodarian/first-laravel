@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -20,10 +19,13 @@ mix
         'resources/css/responsive.css',
         'resources/css/style.css',
         'resources/css/app.css',
-        'resources/css/dropzone.css'
+        'resources/css/dropzone.css',
     ],'public/css/all.css')
     .sass('resources/sass/app.scss', 'public/css/app.css')
-    .js(['resources/js/dropzone.js','resources/js/app.js'], 'public/js')
+    .js([
+        'resources/js/dropzone.js',
+        'resources/js/app.js'
+    ], 'public/js')
 ;
     // .vue()
 

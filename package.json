@@ -28,8 +28,12 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@splidejs/splide": "^2.4.21",
         "gulp": "^4.0.2",
         "jquery-pjax": "^2.0.1",
+        "lightgallery.js": "^1.4.0",
+        "lightslider": "^1.1.6",
+        "nanogallery2": "^3.0.5",
         "node-sass": "^4.14.1"
     },
     "name": "blog"

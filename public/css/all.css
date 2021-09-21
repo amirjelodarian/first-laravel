@@ -5338,6 +5338,7 @@ ul.navbar-nav li a{
     padding-right: 7px;
     padding-left: 7px;
     border-radius: 2.2px;
+    z-index: 1;
 }
 .add-new-post-href a:hover,.add-new-post-href:hover{
     transition: 0.5s;
@@ -5392,6 +5393,116 @@ ul.navbar-nav li a{
 }
 .dz-error-message{
     margin-top: 21px!important;
+}
+.carousel {
+    background: #EEE;
+}
+
+.carousel-cell {
+    width: 66%;
+    height: 400px;
+    margin-right: 10px;
+    border-radius: 5px;
+    counter-increment: gallery-cell;
+}
+
+/* cell number */
+.carousel-cell:before {
+    display: block;
+    text-align: center;
+    content: counter(gallery-cell);
+    line-height: 200px;
+    font-size: 80px;
+    color: white;
+}
+.single-blog{
+    border: 1px solid #00bcd4;
+    border-radius: 4.2px;
+    padding: 10px;
+}
+.single-blog:after{
+    display: table;
+    clear: both;
+}
+.blog-info{
+    margin-top: 35px;
+    font-family: IRANSansL;
+    direction: rtl;
+}
+.blog-title{
+    font-family: IRANSansB;
+    direction: rtl;
+    text-align: center;
+    color: #00bcd4;
+    margin-top: 10px;
+}
+.more-blog a{
+    font-family: IRANSansB;
+}
+@media screen and (min-width: 260px) and (max-width: 309px){
+    .carousel-cell{
+        height: 115px;
+    }
+}
+@media screen and (min-width: 310px) and (max-width: 329px){
+    .carousel-cell{
+        height: 125px;
+    }
+}
+@media screen and (min-width: 330px) and (max-width: 379px){
+    .carousel-cell{
+        height: 135px;
+    }
+}
+@media screen and (min-width: 380px) and (max-width: 389px){
+    .carousel-cell{
+        height: 145px;
+    }
+}
+@media screen and (min-width: 390px) and (max-width: 434px){
+    .carousel-cell{
+        height: 160px;
+    }
+}
+@media screen and (min-width: 435px) and (max-width: 499px){
+    .carousel-cell{
+        height: 180px;
+    }
+}
+@media screen and (min-width: 500px) and (max-width: 550px){
+    .carousel-cell{
+        height: 220px;
+    }
+}
+@media screen and (min-width: 551px) and (max-width: 640px){
+    .carousel-cell{
+        height: 245px;
+    }
+}
+@media screen and (min-width: 641px) and (max-width: 720px){
+    .carousel-cell{
+        height: 300px;
+    }
+}
+@media screen and (min-width: 721px) and (max-width: 840px){
+    .carousel-cell{
+        height: 320px;
+    }
+}
+@media screen and (min-width: 841px) and (max-width: 991px){
+    .carousel-cell{
+        height: 350px;
+    }
+}
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    .carousel-cell{
+        height: 300px;
+    }
+}
+@media screen and (min-width: 1201px) and (max-width: 1400px){
+    .carousel-cell{
+        height: 330px;
+    }
 }
 @media screen and (max-width: 991px){
     .register-form,.login-inputs{

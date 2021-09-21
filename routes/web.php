@@ -41,10 +41,14 @@ Route::group(['middleware' => 'notVerified'],function (){
 });
 
 // blog
-Route::get('blog','BlogController@index')->name('blog');
-Route::group(['middleware' => 'administratorUser','middleware' => 'auth'],function (){
-    Route::get('blog/add','BlogController@create')->name('add-blog');
-    Route::post('blog/add','BlogController@store')->name('add-post');
+
+Route::group(['prefix' => 'blog'],function (){
+    Route::get('/','BlogController@index')->name('blog');
+    Route::get('id/{id}','BlogController@show')->name('more-blog');
+    Route::group(['middleware' => 'administratorUser','middleware' => 'auth'],function (){
+        Route::get('add','BlogController@create')->name('add-blog');
+        Route::post('add','BlogController@store')->name('add-post');
+    });
 });
 ///////
 

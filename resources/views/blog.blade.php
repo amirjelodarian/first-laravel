@@ -1,5 +1,16 @@
 @extends('layout')
+@section('last-head')
+    <link rel="stylesheet" href="{{ asset('css/flickity.css') }}">
+@stop
 @section('main')
+    <!-- Pagination -->
+    <div id="pagination">
+        <span class="all">Page 1 of 3</span>
+        <span class="current">1</span>
+        <a href="#" class="inactive">2</a>
+        <a href="#" class="inactive">3</a>
+    </div>
+    <!-- Pagination -->
 		<section class="blog-single">
 			<div class="container">
 				<div class="row">
@@ -9,116 +20,37 @@
                                 <a href="{{ route('add-blog') }}" class="add-new-post-href">افزودن پست جدید + </a>
                             @endif
                         @endauth
-						<div class="single-blog">
-							<a href="#"><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3></a>
-							<img src="img/blog-image.jpg" alt="Blog Image" />
-							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-							<div class="blog-info">
-								<ul>
-									<li><a href="">Date: June 05, 2016</a></li>
-									<li><a href="">Author Name</a></li>
-									<li><a href="">Category</a></li>
-									<li><a href="">10 Comments</a></li>
-								</ul>
+                            @foreach($allBlog as $blog)
+                                <div class="single-blog">
+                                    <a href="#"><h3 class="blog-title">{{ $blog->title }}</h3></a>
+                                    <div class="carousel" data-flickity='{ "autoPlay": true }'>
+                                        @foreach($blog->photo_path as $photo_path)
+                                            <img class="carousel-cell" src="{{ $photo_path }}" alt="{{ env('APP_NAME') }}" />
+                                        @endforeach
+                                    </div>
+                                    <div class="blog-info">
+                                        <ul>
+                                            <li><a href="">تاریخ انتشار: {{ $blog->created_at }}</a></li>
+                                            <li><a href="">Author Name</a></li>
+                                            <li><a href="">Category</a></li>
+                                            <li><a href="">10 Comments</a></li>
+                                        </ul>
 
-								<div class="read-more pull-right">
-									<a href="#" class="btn btn-readmore">Continue Reading</a>
-								</div>
-
-							</div>
-
-						</div>
-
-						<div class="single-blog">
-							<a href="#"><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3></a>
-							<img src="img/blog-image.jpg" alt="Blog Image" />
-							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-							<div class="blog-info">
-								<ul>
-									<li><a href="">Date: June 05, 2016</a></li>
-									<li><a href="">Author Name</a></li>
-									<li><a href="">Category</a></li>
-									<li><a href="">10 Comments</a></li>
-								</ul>
-
-								<div class="read-more pull-right">
-									<a href="#" class="btn btn-readmore">Continue Reading</a>
-								</div>
-
-							</div>
-
-						</div>
-
-						<div class="single-blog">
-							<a href="#"><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3></a>
-							<img src="img/blog-image.jpg" alt="Blog Image" />
-							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-							<div class="blog-info">
-								<ul>
-									<li><a href="">Date: June 05, 2016</a></li>
-									<li><a href="">Author Name</a></li>
-									<li><a href="">Category</a></li>
-									<li><a href="">10 Comments</a></li>
-								</ul>
-
-								<div class="read-more pull-right">
-									<a href="#" class="btn btn-readmore">Continue Reading</a>
-								</div>
-
-							</div>
-
-						</div>
-
-						<div class="single-blog">
-							<a href="#"><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3></a>
-							<img src="img/blog-image.jpg" alt="Blog Image" />
-							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-							<div class="blog-info">
-								<ul>
-									<li><a href="">Date: June 05, 2016</a></li>
-									<li><a href="">Author Name</a></li>
-									<li><a href="">Category</a></li>
-									<li><a href="">10 Comments</a></li>
-								</ul>
-
-								<div class="read-more pull-right">
-									<a href="#" class="btn btn-readmore">Continue Reading</a>
-								</div>
-
-							</div>
-
-						</div>
+                                        <div class="read-more pull-right more-blog">
+                                            <a href="{{ route('more-blog',['id' => $blog->id]) }}" class="btn btn-readmore">ادامه مطلب ...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
 
 
-						<div class="single-blog">
-							<a href="#"><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3></a>
-							<iframe width="100%" height="450" src="https://www.youtube.com/embed/AASd5ewKNSw" frameborder="0" allowfullscreen></iframe>
-							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-							<div class="blog-info">
-								<ul>
-									<li><a href="">Date: June 05, 2016</a></li>
-									<li><a href="">Author Name</a></li>
-									<li><a href="">Category</a></li>
-									<li><a href="">10 Comments</a></li>
-								</ul>
-
-								<div class="read-more pull-right">
-									<a href="#" class="btn btn-readmore">Continue Reading</a>
-								</div>
-
-							</div>
-
-						</div>
 
 
-						<!-- Pagination -->
-						<div id="pagination">
-							<span class="all">Page 1 of 3</span>
-							<span class="current">1</span>
-							<a href="#" class="inactive">2</a>
-							<a href="#" class="inactive">3</a>
-						</div>
-						<!-- Pagination -->
+
+                            <div class="d-flex justify-content-center">
+                                {!! $allBlog->appends(['sort' => 'department'])->links() !!}
+                            </div>
+
 
 					</div>
 
@@ -183,4 +115,6 @@
 			</div>
 		</section>
 @stop
-
+@section('last-footer')
+    <script src="{{ asset('js/flickity.js') }}"></script>
+@stop

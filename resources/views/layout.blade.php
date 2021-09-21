@@ -2,6 +2,7 @@
 <!doctype html>
 <html class="no-js" lang="">
 <head>
+    @yield('first-head')
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title></title>
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}"></script>
 
-
+    @yield('last-head')
 </head>
 <body>
 
@@ -221,6 +222,7 @@
 </div>
 
 <!-- footer -->
+@yield('first-footer')
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -246,6 +248,7 @@
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
     ga('create','UA-XXXXX-X','auto');ga('send','pageview');
 </script>
+@yield('last-footer')
 </body>
 </html>
 
