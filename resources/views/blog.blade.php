@@ -1,54 +1,51 @@
 @extends('layout')
 @section('last-head')
     <link rel="stylesheet" href="{{ asset('css/flickity.css') }}">
+    <link rel="stylesheet" href="{{ asset('fontello/css/fontello.css') }}">
 @stop
 @section('main')
-    <!-- Pagination -->
-    <div id="pagination">
-        <span class="all">Page 1 of 3</span>
-        <span class="current">1</span>
-        <a href="#" class="inactive">2</a>
-        <a href="#" class="inactive">3</a>
-    </div>
-    <!-- Pagination -->
+
 		<section class="blog-single">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-8" style="float: right">
                         @auth
                             @if($userMode == 'administrator')
-                                <a href="{{ route('add-blog') }}" class="add-new-post-href">افزودن پست جدید + </a>
+                                <a href="{{ route('add-blog') }}" class="add-new-post-href"> + </a>
                             @endif
                         @endauth
-                            @foreach($allBlog as $blog)
-                                <div class="single-blog">
-                                    <a href="#"><h3 class="blog-title">{{ $blog->title }}</h3></a>
+                            <div id="blog-title-result"></div>
+                            <div id="blog-body-result"></div>
+                            <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
+                            @foreach($allBlog->getCollection()->all() as $blog)
+                                <?php $username = $blog->usernameByBlog($blog) ?>
+                                <div class="single-blog col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <a href="#"><h3 class="blog-title" id="{{ $blog->id }}">{{ $blog->title }}</h3></a>
+
                                     <div class="carousel" data-flickity='{ "autoPlay": true }'>
                                         @foreach($blog->photo_path as $photo_path)
                                             <img class="carousel-cell" src="{{ $photo_path }}" alt="{{ env('APP_NAME') }}" />
                                         @endforeach
                                     </div>
+                                        <div class="blog-body" id="{{ $blog->id }}">{!! $blog->body !!}</div>
                                     <div class="blog-info">
                                         <ul>
                                             <li><a href="">تاریخ انتشار: {{ $blog->created_at }}</a></li>
-                                            <li><a href="">Author Name</a></li>
-                                            <li><a href="">Category</a></li>
+                                            <li><a href="">{{ $username }}</a></li>
                                             <li><a href="">10 Comments</a></li>
                                         </ul>
 
                                         <div class="read-more pull-right more-blog">
-                                            <a href="{{ route('more-blog',['id' => $blog->id]) }}" class="btn btn-readmore">ادامه مطلب ...</a>
+                                            <a href="{{ route('more-blog',['id' => $blog->id]) }}" class="btn btn-share"><i class="icon-share"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
 
+                            <div class="center">
+                                {{ $allBlog->appends(Request::input())->links() }}
 
-
-
-
-                            <div class="d-flex justify-content-center">
-                                {!! $allBlog->appends(['sort' => 'department'])->links() !!}
                             </div>
 
 
@@ -117,4 +114,123 @@
 @stop
 @section('last-footer')
     <script src="{{ asset('js/flickity.js') }}"></script>
+    <script src="{{ asset('js/jquery.moretext.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.blog-body').moreContent({
+                height: 62,
+                textClose:'بیشتر >',
+                textOpen:'کمتر ^',
+                useCss: true,
+                speed: 150,
+                tpl: {
+                    content: '<div class="mrc-content"></div>',
+                    contentWrap: '<div class="mrc-content-wrap"></div>',
+                    btn: '<button class="more-content-btn" type="button"></button>',
+                    btnWrap: '<div class="mrc-btn-wrap"></div>',
+                    controls: '<div class="mrc-controls"></div>',
+                    shadow: '<div class="mrc-shadow"></div>',
+                }
+            });
+        });
+        $(function () {
+            //Loop through all Labels with class 'editable'.
+            $('.blog-title').click(function (){
+                $(".blog-title").each(function () {
+                    //Reference the Label.
+                    var label = $(this);
+                    //Add a TextBox next to the Label.
+                    label.after("<input type = 'text' class='blog-title-input' style = 'display:none;direction: rtl' />");
+
+                    //Reference the TextBox.
+                    var textbox = $(this).next();
+
+                    //Set the name attribute of the TextBox.
+                    textbox[0].name = this.id.replace("lbl", "txt");
+
+                    //Assign the value of Label to TextBox.
+                    textbox.val(label.html());
+
+                    //When Label is clicked, hide Label and show TextBox.
+                    label.click(function () {
+                        $(this).hide();
+                        $(this).next().show();
+                    });
+
+                    //When focus is lost from TextBox, hide TextBox and show Label.
+                    textbox.focusout(function () {
+                        $(this).hide();
+                        $(this).prev().html($(this).val());
+                        $(this).prev().show();
+                        var _token = $('#token').val();
+                        var blogTitleId = this.name;
+                        var blogTitleValue = this.value;
+                        $.ajax({
+                            type: 'POST',
+                            url: 'blog/editBlogTitle',
+                            data: {
+                                _token: _token,
+                                blogTitleId: blogTitleId,
+                                blogTitleValue: blogTitleValue,
+                            },
+                            success: function (data) {
+                                $("#blog-title-result").show();
+                                $("#blog-title-result").html(data);
+                            }
+                        });
+                    });
+                });
+
+            });
+
+            $('.blog-body').click(function (){
+                $(".blog-body").each(function () {
+                    //Reference the Label.
+                    var label = $(this);
+                    //Add a TextBox next to the Label.
+                    label.after("<textarea type = 'text' style = 'display:none;direction: rtl'></textarea>");
+
+                    //Reference the TextBox.
+                    var textbox = $(this).next();
+
+                    //Set the name attribute of the TextBox.
+                    textbox[0].name = this.id.replace("lbl", "txt");
+
+                    //Assign the value of Label to TextBox.
+                    textbox.val(label.html());
+
+                    //When Label is clicked, hide Label and show TextBox.
+                    label.click(function () {
+                        $(this).hide();
+                        $(this).next().show();
+                    });
+
+                    //When focus is lost from TextBox, hide TextBox and show Label.
+                    textbox.focusout(function () {
+                        $(this).hide();
+                        $(this).prev().html($(this).val());
+                        $(this).prev().show();
+                        var _token = $('#token').val();
+                        var blogBodyId = this.name;
+                        var blogBodyValue = this.value;
+                        $.ajax({
+                            type: 'POST',
+                            url: 'blog/editBlogBody',
+                            data: {
+                                _token: _token,
+                                blogBodyId: blogBodyId,
+                                blogBodyValue: blogBodyValue,
+                            },
+                            success: function (data) {
+                                $("#blog-body-result").show();
+                                $("#blog-body-result").html(data);
+                            }
+                        });
+                    });
+                });
+
+            });
+
+        });
+    </script>
 @stop

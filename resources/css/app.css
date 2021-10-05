@@ -83,14 +83,14 @@ ul.navbar-nav li a{
 .add-new-post-href{
     transition: 0.5s;
     direction: rtl;
+    right: 50px;
     font-family: IRANSansB;
     position: fixed;
     bottom: 20px;
     background: #00bcd4;
     color: white;
-    padding: 2px;
-    padding-right: 7px;
-    padding-left: 7px;
+    padding-right: 10px;
+    padding-left: 10px;
     border-radius: 2.2px;
     z-index: 1;
 }
@@ -148,10 +148,7 @@ ul.navbar-nav li a{
 .dz-error-message{
     margin-top: 21px!important;
 }
-.carousel {
-    background: #EEE;
-}
-
+.carousel {}
 .carousel-cell {
     width: 66%;
     height: 400px;
@@ -173,13 +170,13 @@ ul.navbar-nav li a{
     border: 1px solid #00bcd4;
     border-radius: 4.2px;
     padding: 10px;
+    text-align: center;
 }
 .single-blog:after{
     display: table;
     clear: both;
 }
 .blog-info{
-    margin-top: 35px;
     font-family: IRANSansL;
     direction: rtl;
 }
@@ -189,6 +186,36 @@ ul.navbar-nav li a{
     text-align: center;
     color: #00bcd4;
     margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 25px;
+    border: none;
+    background: none;
+}
+.blog-title-input{
+    font-family: IRANSansB;
+    direction: rtl;
+    text-align: center;
+    color: #00bcd4;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.blog-body{
+    direction: rtl;
+    margin-top: 5px;
+    padding: 15px;
+    font-family: IRANSansW;
+    text-align: right;
+}
+.more-content-btn{
+    border: none;
+    border-radius: 2.3px;
+    font-size: 12px;
+    font-family: 'IRANSANSB';
+}
+.btn-share i{
+    font-size: 18px;
 }
 .more-blog a{
     font-family: IRANSansB;

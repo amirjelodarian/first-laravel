@@ -14,19 +14,20 @@ class Blog extends Model
     protected $fillable = ['title','body','photo_path'];
     protected $blogPhotosPath = "photos/blog/";
     protected $photoPathSeparator = '<|>';
-    protected $photoPaths;
+    protected $photoPaths = [];
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
     public function addPhoto($fileRequest)
     {
         foreach ($fileRequest as $file){
             $photoName = $this->createPhotoName($file->extension());
-            $this->photoPaths .= $photoName . $this->photoPathSeparator;
+            array_push($this->photoPaths,$photoName);
             $file->move($this->blogPhotosPath,$photoName);
         }
-        return $this->photoPaths;
+        return implode($this->photoPathSeparator,$this->photoPaths);
     }
 
     protected function createPhotoName($fileExtension)
@@ -42,15 +43,30 @@ class Blog extends Model
     {
         $photos = explode($this->photoPathSeparator,$value);
         $photosNameAfterInsertFilePath = [];
-        foreach ($photos as $photo){
+        foreach ($photos as $photo)
             array_push($photosNameAfterInsertFilePath,$this->blogPhotosPath . $photo);
-        }
-        array_pop($photosNameAfterInsertFilePath);
+
         return $photosNameAfterInsertFilePath;
     }
 
-    function getCreatedAtAttribute($value) {
+    public function getCreatedAtAttribute($value) {
         Carbon::setLocale('fa_IR');
         return Carbon::createFromTimeStamp(strtotime($value))->diffForHumans();
     }
+
+    public function setBodyAttribute($value){
+        $this->attributes['body'] = htmlspecialchars($value);
+    }
+
+    public function getBodyAttribute($value){
+        return nl2br($value);
+    }
+
+    public function usernameByBlog($blog)
+    {
+        $userAttrs = $blog->user()->first();
+        return $userAttrs['firstname'] . ' ' . $userAttrs['lastname'];
+    }
+
+
 }

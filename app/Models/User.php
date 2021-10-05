@@ -71,7 +71,6 @@ class User extends Authenticatable
     public function makeCode()
     {
         $this->codes()->create([
-            'user_id' => $this->id ,
             'code' => rand(10000,99999)
         ]);
     }
@@ -84,4 +83,5 @@ class User extends Authenticatable
             return $user;
         }
     }
+
 }

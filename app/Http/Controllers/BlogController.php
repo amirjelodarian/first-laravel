@@ -6,18 +6,20 @@ use App\Http\Requests\AddBlogRequest;
 use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
     public function index()
     {
-        $allBlog = Blog::orderBy('id','desc')->cursorPaginate(2);
+        $allBlog = Blog::orderBy('id','desc')->paginate(3);
         if (auth()->check()){
             $userId = auth()->user();
             $userMode = User::select('user_mode')->whereId($userId->id)->first()['user_mode'];
             return view('blog',compact('userMode'),compact('allBlog'));
         }
+
         return view('blog',compact('allBlog'));
     }
 
@@ -52,6 +54,24 @@ class BlogController extends Controller
         //
     }
 
+    public function editBlogTitle(Request $request)
+    {
+        $request->validate([
+            'blogTitleValue' => 'required|min:3|max:30'
+        ]);
+        $blog = Blog::findOrFail($request->input('blogTitleId'));
+        $blog->title = $request->input('blogTitleValue');
+        $blog->save();
+        return response()->json('title edited (' . $request->input('blogTitleId') . ')');
+    }
+
+    public function editBlogBody(Request $request)
+    {
+        $blog = Blog::findOrFail($request->input('blogBodyId'));
+        $blog->body = $request->input('blogBodyValue');
+        $blog->save();
+        return response()->json('Body edited (' . $request->input('blogBodyId') . ')');
+    }
 
     public function update(Request $request, $id)
     {

@@ -48,8 +48,9 @@ Route::group(['prefix' => 'blog'],function (){
     Route::group(['middleware' => 'administratorUser','middleware' => 'auth'],function (){
         Route::get('add','BlogController@create')->name('add-blog');
         Route::post('add','BlogController@store')->name('add-post');
+        Route::post('editBlogTitle','BlogController@editBlogTitle')->name('edit-blog-title');
+        Route::post('editBlogBody','BlogController@editBlogBody')->name('edit-blog-body');
     });
 });
 ///////
-
 Route::get('home','HomeController@index')->name('home')->middleware('verified');
